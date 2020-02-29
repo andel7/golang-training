@@ -1,34 +1,71 @@
 package main
 
-import (
-	"fmt"
-	"math/big"
-)
+import "fmt"
 
-func checkEven(num int) bool {
-	return checkMod(num, 2)
+var stack []string
+
+func push(str string) {
+	stack = append(stack, str)
 }
-func checkModThree(num int) bool {
-	return checkMod(num, 3)
-}
-func checkMod(num, del int) bool {
-	return num%del == 0
-}
-func fibonachi() {
-	temp := big.NewInt(0)
-	last := big.NewInt(1)
-	previous := big.NewInt(0)
-	for total := 2; total < 100; total++ {
-		fmt.Println("current:", total, last)
-		temp = last
-		last = last.Add(previous, last)
-		previous = temp
+
+// Pop вернет последний добавленный в стек элемент
+func pop() string {
+	numOfElements := len(stack)
+	// Когда стек будет пустым, он вернет пустую строку
+	if numOfElements == 0 {
+		return ""
 	}
+	popElem := stack[0]
+	stack = append(stack[1:])
+	return popElem
 }
+
+type Truck struct {
+	companyName       string
+	yearCreated       int
+	trunkCapacity     int
+	engineOn          bool
+	windowsOpen       bool
+	availableCapacity int
+}
+
+type Car struct {
+	companyName       string
+	yearCreated       int
+	trunkCapacity     int
+	engineOn          bool
+	windowsOpen       bool
+	availableCapacity int
+}
+
 func main() {
-	fmt.Println("2", checkEven(2))
-	fmt.Println("3", checkEven(3))
-	fmt.Println("3", checkModThree(3))
-	fmt.Println("4", checkModThree(4))
-	fibonachi()
+	truck1 := Truck{
+		companyName:       "Scania",
+		yearCreated:       2015,
+		trunkCapacity:     400,
+		engineOn:          false,
+		windowsOpen:       false,
+		availableCapacity: 100,
+	}
+	car1 := Car{
+		companyName:       "mazda",
+		yearCreated:       2018,
+		trunkCapacity:     40,
+		engineOn:          true,
+		windowsOpen:       false,
+		availableCapacity: 30,
+	}
+	fmt.Println(car1, car1.companyName)
+	fmt.Println(truck1, truck1.windowsOpen)
+
+	push("test1")
+	push("test2")
+	push("test3")
+	fmt.Println(stack)
+	pop()
+	fmt.Println(stack)
+	pop()
+	fmt.Println(stack)
+	pop()
+	fmt.Println(stack)
 }
